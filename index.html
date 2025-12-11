@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tarjeta Navidad</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(180deg, #b10000, #7a0000);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Tarjeta */
+    .card {
+        width: 420px;
+        background: #00662f;
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        position: relative;
+        z-index: 10;
+    }
+
+    .inner {
+        background: #ff1c1c;
+        padding: 25px;
+        border-radius: 15px;
+    }
+
+    h1 {
+        margin: 10px 0 5px 0;
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        background: #d10000;
+        border: none;
+        color: white;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #a80000;
+    }
+
+    /* Decoración animada */
+    .icon {
+        position: absolute;
+        font-size: 28px;
+        animation: float 8s linear infinite;
+        opacity: 0.85;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(110vh) rotate(0deg); }
+        100% { transform: translateY(-120vh) rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+
+<!-- Animación de iconos navideños -->
+<script>
+const icons = ["✨","⭐","🎄","❄️","🕯️","🔔"];
+for (let i = 0; i < 35; i++) {
+    let el = document.createElement("span");
+    el.className = "icon";
+    el.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (6 + Math.random()*6) + "s";
+    el.style.fontSize = (20 + Math.random()*20) + "px";
+    document.body.appendChild(el);
+}
+</script>
+
+
+<!-- TARJETA -->
+
+<!-- TARJETA -->
+<div class="card">
+    <div class="inner">
+        <h1>🎄 Gran Fiesta de Navidad 🎁</h1>
+        <p class="subtitle">
+            Comparte con nosotros una celebración especial llena de unión, alegría y esperanza.
+        </p>
+    </div>
+
+    <form id="form">
+        <input type="text" name="nombre" placeholder="Nombre Completo" required>
+        <input type="text" name="oficina" placeholder="Oficina" required>
+        <button type="submit">Enviar Registro</button>
+    </form>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+// Reemplaza la URL con tu WebApp /exec
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6ETmWYAwwSkVFCcS5JIXoWK6L97xPttyX77n2Sz_g3ZeT0WYBlIOe3F1VjD7Z4OlB/exec";
+
+document.getElementById("form").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const data = {
+        nombre: this.nombre.value,
+        oficina: this.oficina.value
+    };
+
+    try {
+        let r = await fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        document.getElementById("msg").innerHTML = "🎉 Registro enviado con éxito";
+        this.reset();
+    } catch (error) {
+        document.getElementById("msg").innerHTML = "❌ Error al enviar los datos";
+    }
+});
+</script>
+
+
+
+</body>
+</html>
+
+
