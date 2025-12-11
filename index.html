@@ -127,7 +127,7 @@ document.getElementById("form").addEventListener("submit", async function(e){
         oficina: this.oficina.value
     };
 
-    let r = await fetch("https://script.google.com/macros/s/AKfycbym25i1UyhfDg7NiFrVd9hz9eVDR4ns9XPG8QR5u4xsvN16Py9BElc6okKO94fS-1Oh/exec", {
+    let r = await fetch("https://script.google.com/macros/library/d/1j6rrM_nfRus_F_gaTy6iR0UB3537pmJW3czDitrYlXOH_tppAQjG51-z/1", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -146,3 +146,4 @@ document.getElementById("form").addEventListener("submit", async function(e){
 
 </body>
 </html>
+
