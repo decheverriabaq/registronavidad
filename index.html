@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tarjeta Navidad</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(180deg, #b10000, #7a0000);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Tarjeta */
+    .card {
+        width: 420px;
+        background: #00662f;
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        position: relative;
+        z-index: 10;
+    }
+
+    .inner {
+        background: #ff1c1c;
+        padding: 25px;
+        border-radius: 15px;
+    }
+
+    h1 {
+        margin: 10px 0 5px 0;
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        background: #d10000;
+        border: none;
+        color: white;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #a80000;
+    }
+
+    /* Decoración animada */
+    .icon {
+        position: absolute;
+        font-size: 28px;
+        animation: float 8s linear infinite;
+        opacity: 0.85;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(110vh) rotate(0deg); }
+        100% { transform: translateY(-120vh) rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+
+<!-- Animación de iconos navideños -->
+<script>
+const icons = ["✨","⭐","🎄","❄️","🕯️","🔔"];
+for (let i = 0; i < 35; i++) {
+    let el = document.createElement("span");
+    el.className = "icon";
+    el.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (6 + Math.random()*6) + "s";
+    el.style.fontSize = (20 + Math.random()*20) + "px";
+    document.body.appendChild(el);
+}
+</script>
+
+
+<!-- TARJETA -->
+
+<iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLScur7jYpt0CS_J5pwGLVgP4gqzSEUUK69iGKufEdAxyDycyKg/viewform?usp=header"
+  frameborder="0"
+  marginheight="0"
+  marginwidth="0"
+>
+  Cargando…
+</iframe>
+
+
+</body>
+</html>
+
+
