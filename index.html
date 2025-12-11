@@ -99,6 +99,7 @@ for (let i = 0; i < 35; i++) {
 }
 </script>
 
+
 <!-- TARJETA -->
 <div class="card">
     <div class="inner">
@@ -108,17 +109,19 @@ for (let i = 0; i < 35; i++) {
         </p>
     </div>
 
-   <form id="form">
-    <input type="text" name="nombre" placeholder="Nombre Completo" required>
-    <input type="text" name="oficina" placeholder="Oficina" required>
-
-    <button type="submit">Enviar Registro</button>
-</form>
+    <form id="form">
+        <input type="text" name="nombre" placeholder="Nombre Completo" required>
+        <input type="text" name="oficina" placeholder="Oficina" required>
+        <button type="submit">Enviar Registro</button>
+    </form>
 
     <p id="msg"></p>
 </div>
 
 <script>
+// Reemplaza la URL con tu WebApp /exec
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6ETmWYAwwSkVFCcS5JIXoWK6L97xPttyX77n2Sz_g3ZeT0WYBlIOe3F1VjD7Z4OlB/exec";
+
 document.getElementById("form").addEventListener("submit", async function(e){
     e.preventDefault();
 
@@ -127,23 +130,24 @@ document.getElementById("form").addEventListener("submit", async function(e){
         oficina: this.oficina.value
     };
 
-    let r = await fetch("https://script.google.com/macros/library/d/1j6rrM_nfRus_F_gaTy6iR0UB3537pmJW3czDitrYlXOH_tppAQjG51-z/1", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    });
+    try {
+        let r = await fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
 
-    const res = await r.json();
-
-    if(res.status === "success"){
         document.getElementById("msg").innerHTML = "🎉 Registro enviado con éxito";
         this.reset();
-    } else {
-        document.getElementById("msg").innerHTML = "❌ Error: " + res.message;
+    } catch (error) {
+        document.getElementById("msg").innerHTML = "❌ Error al enviar los datos";
     }
 });
 </script>
 
+
 </body>
 </html>
+
 
