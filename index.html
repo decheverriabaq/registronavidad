@@ -107,7 +107,7 @@ for (let i = 0; i < 35; i++) {
     <div class="inner">
         <h1>🎄 Gran Fiesta de Navidad 🎁</h1>
         <p class="subtitle">
-            Comparte con nosotros una celebración especial llena de unión, alegría y esperanza. version 1.5
+            Comparte con nosotros una celebración especial llena de unión, alegría y esperanza. version 1.6
         </p>
     </div>
 
@@ -120,17 +120,20 @@ for (let i = 0; i < 35; i++) {
     <p id="msg"></p>
 </div>
 
-<script>
+
+
+
+    <script>
 // Reemplaza la URL con tu WebApp /exec
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_xhkyT9MFdFdoGNCkVVhUMuV7WfpKdumJxMyvsAVJzbvHb09b-h69IchfJZDV61kI/exec";
 
 document.getElementById("form").addEventListener("submit", async function(e){
     e.preventDefault();
 
-    const data = {
-        nombre: this.nombre.value,
-        oficina: this.oficina.value
-    };
+    const nombre = this.nombre.value;
+    const oficina = this.oficina.value;
+
+    const data = { nombre, oficina };
 
     try {
         await fetch(WEB_APP_URL, {
@@ -140,7 +143,13 @@ document.getElementById("form").addEventListener("submit", async function(e){
             body: JSON.stringify(data)
         });
 
-        document.getElementById("msg").innerHTML = "🎉 Registro enviado con éxito ";
+        // Mostrar confirmación + valores ingresados
+        document.getElementById("msg").innerHTML = `
+            🎉 Registro enviado con éxito <br><br>
+            <b>Nombre:</b> ${nombre}<br>
+            <b>Oficina:</b> ${oficina}
+        `;
+
         this.reset();
 
     } catch (error) {
@@ -152,8 +161,10 @@ document.getElementById("form").addEventListener("submit", async function(e){
 
 
 
+
 </body>
 </html>
+
 
 
 
