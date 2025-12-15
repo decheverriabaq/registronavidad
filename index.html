@@ -173,14 +173,14 @@
             <img src="tarjeta.jpg" alt="Invitación">
         </div>
 
-        <form id="miFormulario" style="margin-top: 20px; margin-right: 10px;">
+         <form id="miFormulario" style="margin-top: 20px; margin-right: 10px;">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required><br><br>
 
             <label for="oficina">Oficina:</label>
             <input type="text" id="oficina" name="oficina" required><br><br>
 
-            <button type="submit" style="margin-left: 10px;">Registar</button>
+            <button type="submit" id="btnEnviar" style="margin-left: 10px;">Registrar</button>
         </form>
 
         <p id="respuesta"></p>
@@ -189,33 +189,49 @@
 
 
 
+ <script>
+    const url = "https://script.google.com/macros/s/AKfycbx5kOPbARcu0ovDo0wZ424Y4JXL1-OYo1C9Z-QLixiEaX_1oIR3BTJJyWj2yXon0PaW/exec";
 
-    <script>
-        // URL del WebApp que crearás en Google Apps Script
-        const url = "https://script.google.com/macros/s/AKfycbx5kOPbARcu0ovDo0wZ424Y4JXL1-OYo1C9Z-QLixiEaX_1oIR3BTJJyWj2yXon0PaW/exec";
+    // Si ya fue enviado, bloquea el formulario
+    if (localStorage.getItem("formEnviado")) {
+        document.getElementById("miFormulario").style.display = "none";
+        document.getElementById("respuesta").innerHTML =
+            "✔️ Ya registraste tu información. ¡Gracias!";
+    }
 
-        document.getElementById("miFormulario").addEventListener("submit", function (e) {
-            e.preventDefault();
+    document.getElementById("miFormulario").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-            const formData = new FormData(this);
+        // Bloqueo inmediato para evitar doble clic
+        document.getElementById("btnEnviar").disabled = true;
 
-            fetch(url, {
-                method: "POST",
-                body: formData
-            })
-                .then(res => res.text())
-                .then(data => {
-                    document.getElementById("respuesta").innerHTML = "¡Perfecto! Tus datos han sido registrados exitosamente. ¡Te esperamos";
-                })
-                .catch(err => {
-                    document.getElementById("respuesta").innerHTML = "Error enviando datos.";
-                });
+        const formData = new FormData(this);
+
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.text())
+        .then(() => {
+            localStorage.setItem("formEnviado", "true");
+
+            document.getElementById("miFormulario").style.display = "none";
+            document.getElementById("respuesta").innerHTML =
+                "🎉 ¡Perfecto! Tus datos han sido registrados exitosamente. ¡Te esperamos!";
+        })
+        .catch(() => {
+            document.getElementById("btnEnviar").disabled = false;
+            document.getElementById("respuesta").innerHTML =
+                "❌ Error enviando datos. Inténtalo nuevamente.";
         });
-    </script>
+    });
+</script>
+
 
 </body>
 
 </html>
+
 
 
 
